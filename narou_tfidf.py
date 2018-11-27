@@ -3,6 +3,7 @@
 """
 using csv file of NAROU from Elasticsearch
 this is a code of culculating TF-IDF value of story
+argv[1]: NAROU csv data, argv[2]: output name (ex: argv[2].pkl)
 """
 
 import os
