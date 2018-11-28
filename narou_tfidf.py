@@ -16,14 +16,15 @@ from tfidf_to_pkl import tfidf_transformer as tt
 from tfidf_to_pkl import pickle_transformer as pt
 
 
-# 形態素解析 story => ['文書1の分かち書き(空白区切り)','文書2',...,'文書n']
+# 形態素解析 story => ['文書1の分かち書き(空白区切り)','文書2',...,'文書n'] ---
 def wakati(f):
     mecab = MeCab.Tagger("wakati")
     mecab.parse('') # エラー避け ---   
     f = csv.reader(open(f, "r"))
+    header = next(f) # header削除 ---
     genre_bow = []
 
-    # 1作品ごとにstoryをBoWに
+    # 1作品ごとにstoryをBoWに ---
     for line in f:
         story = ""
         words = mecab.parse(line[31])
@@ -59,6 +60,7 @@ if __name__ == "__main__":
     fin = sys.argv[1]
     out = sys.argv[2]
     bow = wakati(fin)
+    #print(bow)
     #tfidf(bow)
     tfidf = tt("word")
     model, matrix = tfidf.tfidf_culc(bow)
