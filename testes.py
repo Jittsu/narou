@@ -11,7 +11,7 @@ es = Elasticsearch(timeout=180, max_retries=10, retry_on_timeout=True)
 f = sys.argv[1]
 
 df = pd.read_csv(f)
-df = df["fav_novel_cnt"]
+df = df["length"]
 
 sns.distplot(df)
 plt.xscale("log")
