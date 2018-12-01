@@ -29,6 +29,7 @@ def main():
     #plt.xscale("log")
     #plt.yscale("log")
     #graph.set(xscale="log", yscale="log")
+    plt.savefig("seaborn.png")
     plt.show()
     
 
