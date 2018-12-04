@@ -8,12 +8,20 @@ from matplotlib import pyplot as plt
 from elasticsearch import Elasticsearch, helpers
 es = Elasticsearch(timeout=180, max_retries=10, retry_on_timeout=True)
 
-f = sys.argv[1]
+print("select mode")
+ 
+while(1):
+    mode = input(">> ")
 
-df = pd.read_csv(f)
-df = df["length"]
+    if mode == "csv":
+        print("csv output")
 
-sns.distplot(df)
-plt.xscale("log")
-plt.yscale("log")
-plt.show()
+    elif mode == "pickle":
+        print("pickle output")
+
+    elif mode == "end":
+        print("end")
+        break
+
+    else:
+        continue
