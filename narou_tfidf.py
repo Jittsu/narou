@@ -3,7 +3,7 @@
 """
 using csv file of NAROU from Elasticsearch
 this is a code of culculating TF-IDF value of story
-argv[1]: NAROU csv data, argv[2]: output name (ex: argv[2].pkl)
+you can select pickle output mode or csv output mode
 """
 
 import os
@@ -12,8 +12,47 @@ import MeCab
 import csv
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
-from tfidf_to_pkl import tfidf_transformer as tt
-from tfidf_to_pkl import pickle_transformer as pt
+from tfidfTransformer import tfidf_transformer as tt
+from tfidfTransformer import pickle_transformer as pt
+from tfidfTransformer import csv_transformer as ct
+
+# メニュー ---
+def main():
+    tfidf = tt("word")
+    while(1):
+        print("select mode")
+        print("you can get pickle output if you put \"pickle\"")
+        print("you can get csv output if you put \"csv\"")
+        print("you can finish if you put \"end\"")
+
+        mode = input(">> ")
+
+        if mode == "pickle":
+            print("select csv file what you want to transform to pickle")
+            fin = input(">> ")
+            print("put a name of output file")
+            out = input(">> ")
+            bow = wakati(fin)
+            model, matrix = tfidf.tfidf_culc(bow)
+            save = pt(model)
+            save.save_pkl(out)
+
+        elif mode == "csv":
+            print("select csv file what you want to transform to csv")
+            fin = input(">> ")
+            print("put a name of output file")
+            out = input(">> ")
+            bow = wakati(fin)
+            model, matrix = tfidf.tfidf_culc(bow)
+            save = ct(matrix)
+            save.save_csv(out)
+
+        elif mode == "end":
+            print("end")
+            break
+
+        else:
+            continue
 
 
 # 形態素解析 story => ['文書1の分かち書き(空白区切り)','文書2',...,'文書n'] ---
@@ -57,13 +96,4 @@ def tfidf(corpus): # 引数の形は['文書1の分かち書き(空白区切り)
 
 
 if __name__ == "__main__":
-    fin = sys.argv[1]
-    out = sys.argv[2]
-    bow = wakati(fin)
-    #print(bow)
-    #tfidf(bow)
-    tfidf = tt("word")
-    model, matrix = tfidf.tfidf_culc(bow)
-    #print(matrix.toarray())
-    save = pt(model)
-    save.save_pkl(out)
+    main()
