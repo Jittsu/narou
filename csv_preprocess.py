@@ -14,7 +14,7 @@ import datetime
 def main():
     f = sys.argv[1]
     n = sys.argv[2]
-    columns = ["ncode","fav_novel_cnt","kaiwaritu","length","review_cnt","userid"]
+    columns = ["ncode","fav_novel_cnt","general_all_no","kaiwaritu","length","review_cnt","userid"]
     culc_columns = ["general_all_no","general_firstup","general_lastup"]
 
     df1 = pd.read_csv(f)
