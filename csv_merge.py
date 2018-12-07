@@ -14,12 +14,12 @@ def main():
     #l.append(pd.read_csv(f2, header=None))
     #df = pd.concat(l)
 
-    df1 = pd.read_csv(f1, header=None)
+    df1 = pd.read_csv(f1)
     df2 = pd.read_csv(f2, header=None)
 
     df = pd.concat([df1, df2], axis=1)
 
-    df.to_csv("/mnt/hdd1/data/narou/genre_reg/{0}_reg.csv".format(n), index=None, header=None)
+    df.to_csv("{0}.csv".format(n), index=None, header=None)
 
 if __name__ == "__main__":
     main()
