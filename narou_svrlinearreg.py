@@ -28,7 +28,7 @@ def main():
 
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
 
-    svr_lin = SVR(kernel="rbf", C=1e-1, gamma=1e-10)
+    svr_lin = SVR(kernel="rbf", C=20, gamma=1e-7)
     y_lin = svr_lin.fit(X_train, Y_train).predict(X_train)
 
     Y_pred = svr_lin.predict(X_test)
