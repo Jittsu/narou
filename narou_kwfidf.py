@@ -11,8 +11,8 @@ import sys
 import csv
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
-from tfidf_to_pkl import tfidf_transformer as tt
-from tfidf_to_pkl import pickle_transformer as pt
+from tfidfTransformer import tfidf_transformer as tt
+from tfidfTransformer import pickle_transformer as pt
 
 
 # keyword => ['文書1のkeyword(空白区切り)','文書2',...,'文書n'] ---
