@@ -13,37 +13,70 @@ import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from tfidfTransformer import tfidf_transformer as tt
 from tfidfTransformer import pickle_transformer as pt
+from tfidfTransformer import csv_transformer as ct
 
 
-# keyword => ['文書1のkeyword(空白区切り)','文書2',...,'文書n'] ---
-def main(f): 
+# メニュー ---
+def main():
+    tfidf = tt("word")
+    while(1):
+        print("select mode")
+        print("you can get pickle output if you put \"pickle\"")
+        print("you can get csv output if you put \"csv\"")
+        print("you can finish if you put \"end\"")
+
+        mode = input(">> ")
+
+        if mode == "pickle":
+            print("select csv file what you want to transform to pickle")
+            fin = input(">> ")
+            print("put a name of output file")
+            out = input(">> ")
+            bow = wakati(fin)
+            model, matrix = tfidf.tfidf_culc(bow)
+            save = pt(matrix)
+            save.save_pkl(out)
+
+        elif mode == "csv":
+            print("select csv file what you want to transform to csv")
+            fin = input(">> ")
+            print("put a name of output file")
+            out = input(">> ")
+            bow = wakati(fin)
+            model, matrix = tfidf.tfidf_culc(bow)
+            save = ct(matrix)
+            save.save_csv(out)
+
+        elif mode == "end":
+            print("end")
+            break
+
+        else:
+            continue
+
+
+# 形態素解析 keyword => ['文書1の分かち書き(空白区切り)','文書2',...,'文書n'] ---
+def wakati(f):
     f = csv.reader(open(f, "r"))
     header = next(f) # header削除 ---
-    genre_bok = [] # bok: bag of keywords
+    keywords = []
 
-    # 1作品ごとにkeywordをリストへ
+    # 1作品ごとにkeywordをBoWに ---
     for line in f:
-        keywords = line[23]
-        genre_bok.append(keywords)
-    return genre_bok
+        key = ""
+        words = line[23]
+        words = words.split(" ") # キーワードに分割 ---
 
-# tfidf値の計算 ---
-def tfidf(corpus): # 引数の形は['文書1の分かち書き(空白区切り)','文書2',...,'文書n'] ---
-    vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform(corpus)
-    print(tfidf_matrix.toarray())
-    
-    for k,v in sorted(vectorizer.vocabulary_.items(), key=lambda x:x[1]):
-        print(k, v)
+        # キーワードをリストに投入 ---
+        for word in words:
+
+            if (word == "R15") | (word == "残酷な描写あり"):
+                continue
+            else:
+                key = key + word + " " # 空白区切りのBoWを作る ---
+        keywords.append(key)
+    return keywords
 
 
 if __name__ == "__main__":
-    fin = sys.argv[1]
-    #out = sys.argv[2]
-    bok = main(fin)
-    #print(bok)
-    #tfidf = tt("word")
-    #model, matrix = tfidf.tfidf_culc(bow)
-    #print(matrix.toarray())
-    #save = pt(model)
-    #save.save_pkl(out)
+    main()
