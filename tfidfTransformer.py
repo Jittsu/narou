@@ -8,12 +8,13 @@ this code was written using the code from https://qiita.com/arata-honda/items/64
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
 import csv
+import numpy as np
 
 
 class tfidf_transformer:
 
     def __init__(self, analyze_method):
-        self.vectorizer = TfidfVectorizer(analyzer=analyze_method, use_idf=True, norm='l2', smooth_idf=True)
+        self.vectorizer = TfidfVectorizer(analyzer=analyze_method, use_idf=True, norm='l2', smooth_idf=True, dtype=np.float32)
 
     def tfidf_culc(self, corpus): # 引数の形は['文書1の分かち書き(空白区切り)','文書2',...,'文書n'] ---
         tfidf_model = self.vectorizer.fit(corpus)
@@ -23,13 +24,13 @@ class tfidf_transformer:
 
 class pickle_transformer:
 
-    def __init__(self, model):
-        self.model = model
+    def __init__(self, matrix):
+        self.matrix = matrix
 
     def save_pkl(self, name):
         try:
             with open("{0}.pkl".format(name), "wb") as f:
-                pickle.dump(self.model, f)
+                pickle.dump(self.matrix, f)
             return print("ok")
         except:
             return print("error")
