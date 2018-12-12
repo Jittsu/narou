@@ -5,7 +5,6 @@ import sys
 import csv
 
 def main():
-    #l = []
     f1 = sys.argv[1]
     f2 = sys.argv[2]
     n = sys.argv[3]
