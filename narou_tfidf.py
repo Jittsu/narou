@@ -34,7 +34,7 @@ def main():
             out = input(">> ")
             bow = wakati(fin)
             model, matrix = tfidf.tfidf_culc(bow)
-            save = pt(model)
+            save = pt(matrix)
             save.save_pkl(out)
 
         elif mode == "csv":
