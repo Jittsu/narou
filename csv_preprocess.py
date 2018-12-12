@@ -10,11 +10,12 @@ import sys
 from scipy import sparse
 from scipy.io import mmwrite, mmread
 import datetime
+from tfidfTransformer import pickle_transformer as pt
 
 def main():
     f = sys.argv[1]
     n = sys.argv[2]
-    columns = ["ncode","fav_novel_cnt","kaiwaritu","length","review_cnt","time","userid"]
+    columns = ["fav_novel_cnt","kaiwaritu","length","review_cnt","time","userid"]
     culc_columns = ["general_all_no","general_firstup","general_lastup"]
 
     df1 = pd.read_csv(f)
@@ -38,11 +39,13 @@ def main():
     #print(cdf2)
 
     df = pd.concat([df3, cdf2], axis=1)
-    #print(df)
 
     #outdf = sparse.csr_matrix(df3.to_sparse(), dtype=np.float32)
-    df.to_csv("{0}.csv".format(n), index= False)
+    #df.to_csv("{0}.csv".format(n), index= False)
     #mmwrite("{0}".format(n), outdf)
+    df = sparse.csr_matrix(df.to_sparse(), dtype=np.float32)
+    save = pt(df)
+    save.save_pkl(n)
 
     #print(df)
 
