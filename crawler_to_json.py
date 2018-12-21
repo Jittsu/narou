@@ -9,11 +9,15 @@ import random
 import pandas as pd
 
 if __name__ == "__main__":
-    crawl_start = datetime.datetime.today()
-    dirpath = "/mnt/hdd1/data/raw/{0}".format(crawl_start)
-    os.mkdir(dirpath)
+    crawl_start = datetime.date.today()
+    #dirpath = "/mnt/hdd1/data/raw/{0}".format(crawl_start)
+    dirpath1 = "/mnt/hdd1/data/narou/2018/narou_{0}/".format(crawl_start) # ディレクトリ指定 2018-12-19 ---
+    os.mkdir(dirpath1)
+    dirpath2 = "/mnt/hdd1/data/narou/2018/narou_{0}/raw/".format(crawl_start)
+    os.mkdir(dirpath2)
 
-    done_novel = os.listdir("/mnt/hdd1/data/raw")
+    #done_novel = os.listdir("/mnt/hdd1/data/raw")
+    done_novel = os.listdir("/mnt/hdd1/data/narou/2018/narou_{0}/raw".format(crawl_start)) # ディレクトリ指定 2018-12-19 ---
     # ncodeの出力 ---
     for i in range(26*2, 26*7): # n****a~n****fc<-までにしたい ---
         if i < 26:
@@ -45,7 +49,8 @@ if __name__ == "__main__":
             if len(r) >= 2:
                 print("小説 {0} のクローリングを行います。".format(f))
                 novel = None
-                fname = "/mnt/hdd1/data/raw/{0}".format(f)
+                #fname = "/mnt/hdd1/data/raw/{0}".format(f)
+                fname = "/mnt/hdd1/data/narou/2018/narou_{0}/raw/{1}".format(crawl_start,f) # ディレクトリ指定 2018-12-19 ---
                 with open(fname, "w") as File:
                     File.write(str(r[1:]))
             else:
