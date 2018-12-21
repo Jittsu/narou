@@ -15,6 +15,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from tfidfTransformer import tfidf_transformer as tt
 from tfidfTransformer import pickle_transformer as pt
 from tfidfTransformer import csv_transformer as ct
+from datetime import datetime
 
 # メニュー ---
 def main():
@@ -32,20 +33,24 @@ def main():
             fin = input(">> ")
             print("put a name of output file")
             out = input(">> ")
+            print("start {0}".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
             bow = wakati(fin)
             model, matrix = tfidf.tfidf_culc(bow)
             save = pt(matrix)
             save.save_pkl(out)
+            print("end {0}".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
 
         elif mode == "csv":
             print("select csv file what you want to transform to csv")
             fin = input(">> ")
             print("put a name of output file")
             out = input(">> ")
+            print("start {0}".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
             bow = wakati(fin)
             model, matrix = tfidf.tfidf_culc(bow)
             save = ct(matrix)
             save.save_csv(out)
+            print("end {0}".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
 
         elif mode == "end":
             print("end")
