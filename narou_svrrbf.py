@@ -4,6 +4,7 @@
 regression analysis of NAROU data
 recuring "fav_novel_cnt" of NAROU data
 input: NAROU csv data header:["fav_novel_cnt","length","all_point","general_all_no","review_cnt","kaiwaritu"]
+SVR
 """
 
 import numpy as np
@@ -54,7 +55,10 @@ def main():
     plt.title("Coor:%s, RMSPE:%s, R2_SCORE:%s, %s" % (corr,RMSPE,clf.best_score_,clf.best_params_))
     plt.xlabel("Y_test")
     plt.ylabel("Y_pred")
-    plt.scatter(Y_test, Y_pred)
+    #plt.xscale("log")
+    #plt.yscale("log")
+    plt.grid(which="both")
+    plt.scatter(Y_test, Y_pred, marker='.', s=50)
     plt.plot(Y_test, Y_test, color="r")
     plt.show()
 
