@@ -19,7 +19,7 @@ if __name__ == "__main__":
     #done_novel = os.listdir("/mnt/hdd1/data/raw")
     done_novel = os.listdir("/mnt/hdd1/data/narou/2019/narou_{0}/raw".format(crawl_start)) # ディレクトリ指定 2018-12-19 ---
     # ncodeの出力 ---
-    for i in range(26*2, 26*7): # n****a~n****fc<-までにしたい ---
+    for i in range(26*1, 26*7): # n****a~n****fc<-までにしたい ---
         if i < 26:
             alpha_id = chr(ord('a') + i)
         else:
