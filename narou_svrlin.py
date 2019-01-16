@@ -4,7 +4,7 @@
 regression analysis of NAROU data
 recuring "fav_novel_cnt" of NAROU data
 input: NAROU csv data header:["fav_novel_cnt","length","all_point","general_all_no","review_cnt","kaiwaritu"]
-LINEAR
+Ridge LINEAR
 """
 
 import numpy as np
