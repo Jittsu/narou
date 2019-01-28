@@ -21,8 +21,9 @@ from scipy import sparse
 from sklearn.model_selection import GridSearchCV
 
 def main():
+    lasso = Lasso()
     tuned_parameters = {'alpha': [0.01,0.1,1,10,100,1000]}
-    clf = GridSearchCV(Lasso(), tuned_parameters, cv=5, scoring="r2", n_jobs=10)
+    clf = GridSearchCV(lasso, tuned_parameters, cv=5, scoring="r2", n_jobs=10)
     f = sys.argv[1]
     df = pd.read_pickle(f)
     X = df[:, 1:]
@@ -41,11 +42,15 @@ def main():
     print("Corr:%f, RMSPE:%f, R2_SCORE:%f\n%s" % (corr,RMSPE,clf.best_score_,clf.best_params_))
 
     plt.title("Coor:%s, RMSPE:%s, R2_SCORE:%s, %s" % (corr,RMSPE,clf.best_score_,clf.best_params_))
-    plt.xlabel("Y_test")
-    plt.ylabel("Y_pred")
-    plt.scatter(Y_test, Y_pred)
+    plt.xlabel("Y_test", fontsize=20)
+    plt.ylabel("Y_pred", fontsize=20)
+    plt.grid(which="both")
+    plt.scatter(Y_test, Y_pred, marker='.', s=50)
     plt.plot(Y_test, Y_test, color="r")
+    plt.tick_params(labelsize=20)
     plt.show()
+
+    print(len(clf.best_estimator_.coef_))
 
 if __name__ == "__main__":
     main()
