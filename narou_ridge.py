@@ -54,10 +54,12 @@ def main():
     print("Corr:%f, RMSPE:%f, R2_SCORE:%f\n%s" % (corr,RMSPE,clf.best_score_,clf.best_params_))
 
     plt.title("Coor:%s, RMSPE:%s, R2_SCORE:%s, %s" % (corr,RMSPE,clf.best_score_,clf.best_params_))
-    plt.xlabel("Y_test")
-    plt.ylabel("Y_pred")
-    plt.scatter(Y_test, Y_pred)
+    plt.xlabel("Y_test", fontsize=20)
+    plt.ylabel("Y_pred", fontsize=20)
+    plt.grid(which="both")
+    plt.scatter(Y_test, Y_pred, marker='.', s=50)
     plt.plot(Y_test, Y_test, color="r")
+    plt.tick_params(labelsize=20)
     plt.show()
 
     """
