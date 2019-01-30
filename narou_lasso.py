@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 from math import sqrt
 from scipy import sparse
 from sklearn.model_selection import GridSearchCV
+from statistics import mean, pvariance
 
 def main():
     lasso = Lasso()
@@ -30,7 +31,9 @@ def main():
     Y = df[:, 0].todense()
     Y = pd.DataFrame(Y)
     Y = Y.iloc[:, 0].values
-    Y = np.log(Y+1).astype(np.float32)
+    Y = np.log(Y+1).astype(np.float64)
+    m = mean(Y)
+    p = pvariance(Y)
 
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
 
@@ -47,6 +50,7 @@ def main():
     plt.grid(which="both")
     plt.scatter(Y_test, Y_pred, marker='.', s=50)
     plt.plot(Y_test, Y_test, color="r")
+    plt.axhline(y=m, color="green")
     plt.tick_params(labelsize=20)
     plt.show()
 
