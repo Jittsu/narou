@@ -43,6 +43,7 @@ def main():
     corr = np.corrcoef(Y_test, Y_pred)[0, 1]
     RMSPE = (np.sqrt(np.mean(((Y_test-Y_pred) / (Y_test+1)) ** 2)))
     print("Corr:%f, RMSPE:%f, R2_SCORE:%f\n%s" % (corr,RMSPE,clf.best_score_,clf.best_params_))
+    print(clf.best_estimator_.coef_)
 
     plt.title("Coor:%s, RMSPE:%s, R2_SCORE:%s, %s" % (corr,RMSPE,clf.best_score_,clf.best_params_))
     plt.xlabel("Y_test", fontsize=20)
@@ -54,7 +55,6 @@ def main():
     plt.tick_params(labelsize=20)
     plt.show()
 
-    print(len(clf.best_estimator_.coef_))
 
 if __name__ == "__main__":
     main()
